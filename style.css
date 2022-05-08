@@ -1,0 +1,217 @@
+body {
+
+    font-family: 'DM Sans', sans-serif;
+    background-image: url('assets/bg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    margin: auto;
+    text-align: center;
+    padding: 10px;
+    color: white;
+}
+
+nav {
+    margin: 20px;
+
+}
+
+
+
+
+
+section {
+    width: 50%;
+    margin: 50px auto 0px auto;
+    padding: 20px;
+    border-radius: 20px;
+
+    background: rgba(223, 223, 223, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    outline: 1px solid white;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-size: 2.5em;
+
+}
+
+
+h1,
+h2 {
+
+
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+#image {
+    padding: 10px;
+}
+
+/* unvisited link */
+a:link {
+    color: white;
+}
+
+/* visited link */
+a:visited {
+    color: darkviolet;
+}
+
+/* mouse over link */
+a:hover {
+    color: cyan;
+}
+
+/* selected link */
+a:active {
+    color: cyan;
+}
+
+footer {
+    background-color: lightslategray;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    position: fixed;
+    padding: 10px 0 10px 0;
+    z-index: 1;
+    animation-name: example;
+    animation-duration: 10s;
+}
+
+@keyframes example {
+    from {
+        background-color: black;
+    }
+
+    to {
+        background-color: lightslategray;
+    }
+}
+
+.responsive {
+    width: 100%;
+    height: auto;
+}
+
+.tableborder1 {
+    border: 1px solid;
+}
+
+.tableborder2 {
+    border: 2px solid;
+}
+
+.button {
+    background: black;
+    color: white;
+    border: 0px;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+        justify-content: center;
+        margin: auto;
+    font-size: 1em;
+    font-family: 'DM Sans', sans-serif;
+    
+}
+
+.button:hover {
+    background: slategray;
+    font-weight: bold;
+}
+
+.clear {
+    clear: both;
+    height: 100px;
+}
+
+.form-input {
+    margin: 10px 100px 10px 100px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    padding: 15px;
+    margin: 5px;
+    border-radius: 15px;
+    border: 0px;
+
+}
+
+select {
+    padding: 15px;
+    margin: 5px;
+    border-radius: 15px;
+    border: 0px;
+
+}
+
+label {
+    font-weight: bold;
+}
+
+textarea {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 15px;
+    border: 0px;
+
+}
+
+form {
+    text-align: left;
+}
+
+.form-title {
+    font-size: 1em;
+    font-style: normal;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
+}
+
+error {
+    color: red;
+}
+
+
+#skills_list>li {
+    background: lightslategray;
+    color: white;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 15px;
+    border: 0px;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td,
+th {
+    width: 100%;
+    border: 1px solid;
+    padding: 10px;
+}

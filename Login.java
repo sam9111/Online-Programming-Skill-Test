@@ -1,4 +1,3 @@
-package source;
 
 import java.io.*;
 import java.util.*;
@@ -56,6 +55,7 @@ public class Login extends HttpServlet {
 						&& request.getParameter("password").equals(rs.getString("password"))) {
 					out.println("<h2>Successfully Logged In</h2>");
 					flag = true;
+					break;
 				}
 
 			}

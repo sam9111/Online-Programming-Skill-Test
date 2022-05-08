@@ -1,4 +1,3 @@
-package source;
 
 import java.io.*;
 import java.util.*;
@@ -14,14 +13,6 @@ public class Signup extends HttpServlet {
     // Database credentials
     static final String USER = "root";
     static final String PASS = "samyuktha9111";
-
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        RequestDispatcher rd = request.getRequestDispatcher("signup.html");
-        rd.forward(request, response);
-
-    }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -41,22 +32,45 @@ public class Signup extends HttpServlet {
             // Open a connection
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-            // Execute SQL query
-            PreparedStatement st = conn
-                    .prepareStatement("insert into credentials values(?, ?)");
-            st.setString(1, request.getParameter("username"));
-            st.setString(2, request.getParameter("password"));
-            st.executeUpdate();
+            // Validate
+            Statement stmt = conn.createStatement();
+            String sql;
+            sql = "SELECT * FROM ex4.credentials";
+            ResultSet rs = stmt.executeQuery(sql);
 
-            // Close all the connections
-            st.close();
-            conn.close();
+            Boolean flag = false;
 
-            // Get a writer pointer
-            // to display the successful result
+            while (rs.next()) {
 
-            out.println(
-                    "<h2>Signup Successful!</h2><button class=\"button\" onclick=\"window.location.href='index.html'\">Login</button>");
+                if (request.getParameter("username").equals(rs.getString("username"))) {
+                    out.println(
+                            "<h2>Account already exists!</h2><button class=\"button\" onclick=\"window.location.href='templates/signup.html'\">Try Again</button>");
+
+                    flag = true;
+                    break;
+                }
+
+            }
+
+            if (flag == false) {
+                // Execute SQL query
+                PreparedStatement st = conn
+                        .prepareStatement("insert into credentials values(?, ?)");
+                st.setString(1, request.getParameter("username"));
+                st.setString(2, request.getParameter("password"));
+                st.executeUpdate();
+
+                // Close all the connections
+                st.close();
+                conn.close();
+
+                // Get a writer pointer
+                // to display the successful result
+
+                out.println(
+                        "<h2>Signup Successful!</h2><button class=\"button\" onclick=\"window.location.href='index.html'\">Login</button>");
+
+            }
 
             out.println("</section></body></html>");
 

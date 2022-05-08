@@ -53,7 +53,9 @@ public class Login extends HttpServlet {
 
 				if (request.getParameter("username").equals(rs.getString("username"))
 						&& request.getParameter("password").equals(rs.getString("password"))) {
-					out.println("<h2>Successfully Logged In</h2>");
+
+					response.sendRedirect("templates/form.html");
+
 					flag = true;
 					break;
 				}

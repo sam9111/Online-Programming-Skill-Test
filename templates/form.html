@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillTest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap"
+        rel="stylesheet" />
+    <link href="../style.css" rel="stylesheet" type="text/css" />
+
+    <style media="all">
+
+    </style>
+</head>
+
+<body>
+    <!-- this is the start of content -->
+
+    <header>
+        <h1>SkillTest</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+        </nav>
+    </header>
+
+    <section>
+
+        <div class="form-title">
+            <h2>Register for Cyber Paradox! </h2>
+        </div>
+
+        <form name="registration" action="registration-data.html" onsubmit="return validate()" method="POST">
+
+            <div class="form-input">
+                <label for="name" id="name_label">Name</label>
+                <input type="text" id="name" name="name" value="" onfocus="nameFocus(this)" onblur="nameBlur()"
+                    oninvalid="document.getElementById('name_label').style.color='red'" required>
+
+            </div>
+
+            <div class="form-input">
+                <label for="college_name" id="college_label">College Name</label>
+                <input type="text" id="college_name" name="college name" value=""
+                    oninvalid="document.getElementById('college_label').style.color='red'" required>
+            </div>
+
+            <div class="form-input">
+                <label for="college_address">College Address</label>
+                <textarea id="college_address" name="college address" rows="4" cols="50"
+                    onselect="textSelected()"></textarea>
+            </div>
+
+            <div class="form-input">
+                <label for="pincode">Pincode</label>
+                <input type="number" id="pincode" name="pincode" value="" maxlength="6" oninput="maxLengthCheck(this)"
+                    required>
+            </div>
+
+            <div class="form-input">
+                <label for="age">Age</label>
+                <input type="text" id="age" name="age" value=""
+                    onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+            </div>
+
+            <div class="form-input">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" value="" required>
+            </div>
+
+            <div class="form-input">
+                <label for="gender">Gender</label>
+                <div style="margin: 10px;">
+                      <input type="radio" id="male" name="gender" value="Male" required="required">   <label
+                        for="male">Male</label>
+                      <input type="radio" id="female" name="gender" value="Female">   <label for="female">Female</label>
+                      <input type="radio" id="other" name="gender" value="Other">   <label for="other">Other</label>
+                </div>
+            </div>
+
+
+            <div class="form-input">
+                <label for="department">Department</label>
+                <select id="department" name="department" onchange="departmentSelected()" required>
+                    <option value="" selected disabled>Select one</option>
+                    <option value="CSE">CSE</option>
+                    <option value="IT">IT</option>
+                    <option value="ECE">ECE</option>
+                    <option value="EEE">EEE</option>
+                </select>
+                <p id="demo"></p>
+            </div>
+
+            <div class="form-input">
+                <label for="contact" id="contact_label">Contact Number</label>
+                <input type="tel" id="contact" name="contact" value="" pattern="[0-9]{10}" maxlength="10"
+                    oninvalid="document.getElementById('contact_label').style.color='red'" required>
+            </div>
+
+            <div class="form-input">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="" pattern="[^ @]*@[^ @]*" required>
+            </div>
+
+            <div class="form-input">
+                <label for="skills">Programming Skills</label>
+
+                <ul id="skills_list" style="list-style-type:none;display: flex;">
+
+                    <li id="python" draggable="true" ondragstart="drag(event)" data-value="Python">Python</li>
+                    <li id="java" draggable="true" ondragstart="drag(event)" data-value="Java">Java</li>
+                    <li id="c++" draggable="true" ondragstart="drag(event)" data-value="C++">C++</li>
+                </ul>
+
+
+                <textarea id="skills" name="skills" rows="4" cols="50" ondrop="drop(event)"
+                    ondragover="allowDrop(event)"></textarea>
+
+
+
+
+            </div>
+
+
+            <div class="form-input">
+                <label for="hobbies">Hobbies</label>
+                <div style="margin: 10px;">
+                    <input type="checkbox" id="hobby1" name="hobby1" value="Reading">
+                    <label for="hobby1"> Reading</label>
+                    <input type="checkbox" id="hobby2" name="hobby2" value="Sports">
+                    <label for="hobby2"> Sports</label>
+                    <input type="checkbox" id="art" name="hobby3" value="Boat">
+                    <label for="art"> Art</label>
+                </div>
+            </div>
+
+            <div class="form-input">
+                <label for="file">Upload Consent Letter</label>
+                <input type="file" id="myFile" name="filename">
+            </div>
+            <div style="margin: 20px;display: inline-flex;">
+                <input type="reset" value="Reset" class="button ">
+                <input type="submit" value="Submit" class="button ">
+            </div>
+        </form>
+    </section>
+    <div class="clear"></div>
+
+    <script src="../script.js"></script>
+
+
+
+</body>
+
+</html>

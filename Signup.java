@@ -14,6 +14,13 @@ public class Signup extends HttpServlet {
     static final String USER = "root";
     static final String PASS = "samyuktha9111";
 
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        response.sendRedirect("./templates/signup.html");
+
+    }
+
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

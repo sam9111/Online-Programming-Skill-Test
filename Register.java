@@ -17,13 +17,6 @@ public class Register extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.sendRedirect("./templates/form.html");
-
-    }
-
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
         String[] details = { "name", "college_name", "college_address", "pincode", "age", "dob", "gender", "department",
                 "contact", "email", "skills", "hobby1", "hobby2", "hobby3", "filename" };
 
@@ -59,10 +52,15 @@ public class Register extends HttpServlet {
             // Get a writer pointer
             // to display the successful result
 
-            out.println(
-                    "<h2>Registration Successful!</h2><button class=\"button\" onclick=\"window.location.href='templates/test.html'\">Start Skill Test</button>");
+            // out.println(
+            // "<h2>Registration Successful!</h2><button class=\"button\"
+            // onclick=\"window.location.href='templates/test.html'\">Start Skill
+            // Test</button>");
 
             out.println("</section></body></html>");
+
+            RequestDispatcher rd = request.getRequestDispatcher("Test");
+            rd.forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();

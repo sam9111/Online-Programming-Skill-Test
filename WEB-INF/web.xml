@@ -28,4 +28,14 @@
 <url-pattern>/register</url-pattern>
 </servlet-mapping>
 
+<servlet>
+<servlet-name>Test</servlet-name>
+<servlet-class>Test</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>Test</servlet-name>
+<url-pattern>/Test</url-pattern>
+</servlet-mapping>
+
+
 </web-app>

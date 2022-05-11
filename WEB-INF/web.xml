@@ -1,4 +1,5 @@
 <web-app>
+
 <servlet>
 <servlet-name>Login</servlet-name>
 <servlet-class>Login</servlet-class>
@@ -16,4 +17,15 @@
 <servlet-name>Signup</servlet-name>
 <url-pattern>/signup</url-pattern>
 </servlet-mapping>
+
+
+<servlet>
+<servlet-name>Register</servlet-name>
+<servlet-class>Register</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>Register</servlet-name>
+<url-pattern>/register</url-pattern>
+</servlet-mapping>
+
 </web-app>

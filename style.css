@@ -64,20 +64,14 @@ a:link {
     color: white;
 }
 
-/* visited link */
-a:visited {
-    color: darkviolet;
-}
+
 
 /* mouse over link */
 a:hover {
     color: cyan;
 }
 
-/* selected link */
-a:active {
-    color: cyan;
-}
+
 
 footer {
     background-color: lightslategray;

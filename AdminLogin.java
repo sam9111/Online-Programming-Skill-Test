@@ -58,7 +58,7 @@ public class AdminLogin extends HttpServlet {
                     if (rs.getString("username").equals(ADMIN)
                             && request.getParameter("password").equals(rs.getString("password"))) {
 
-                        response.sendRedirect("templates/admin-dashboard.html");
+                        response.sendRedirect("AdminDashboard");
 
                         flag = true;
                         break;

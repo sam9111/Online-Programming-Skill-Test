@@ -14,6 +14,16 @@ public class Login extends HttpServlet {
 	static final String USER = "root";
 	static final String PASS = "samyuktha9111";
 
+	static int count = 0;
+
+	public void sessionCreated(HttpSessionEvent sessionEvent) {
+		count = count + 1;
+	}
+
+	public int getSessionCount() {
+		return count;
+	}
+
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -54,7 +64,21 @@ public class Login extends HttpServlet {
 				if (request.getParameter("username").equals(rs.getString("username"))
 						&& request.getParameter("password").equals(rs.getString("password"))) {
 
-					response.sendRedirect("templates/form.html");
+					HttpSession session = request.getSession();
+					session.setAttribute("username", request.getParameter("username"));
+
+					sessionCreated(new HttpSessionEvent(session));
+
+					sql = "SELECT * FROM ex4.registrations WHERE username='" + request.getParameter("username") + "'";
+
+					ResultSet rs1 = stmt.executeQuery(sql);
+
+					if (rs1.next()) {
+						response.sendRedirect("templates/dashboard.html");
+					} else {
+						response.sendRedirect("templates/form.html");
+
+					}
 
 					flag = true;
 					break;

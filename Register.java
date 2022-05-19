@@ -18,11 +18,17 @@ public class Register extends HttpServlet {
             throws ServletException, IOException {
 
         String[] details = { "name", "college_name", "college_address", "pincode", "age", "dob", "gender", "department",
-                "contact", "email", "skills", "hobby1", "hobby2", "hobby3", "filename" };
+                "contact", "email", "skills", "hobby1", "hobby2", "hobby3", "filename", "username" };
 
         // Set response content type
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+
+        Cookie name = new Cookie("name", request.getParameter("name"));
+        Cookie contact = new Cookie("contact", request.getParameter("contact"));
+
+        response.addCookie(name);
+        response.addCookie(contact);
 
         out.println(
                 "<html>	<head>	<meta charset=\"utf-8\">  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">  <title>SkillTest</title>    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" />  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />  <link href=\"https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap\"   rel=\"stylesheet\" /> <link href=\"./style.css\" rel=\"stylesheet\" type=\"text/css\" /> <style media=\"all\"> </style></head><body> <!-- this is the start of content -->  <header>    <h1>SkillTest</h1></header><section> ");
@@ -37,11 +43,15 @@ public class Register extends HttpServlet {
 
             // Execute SQL query
             PreparedStatement st = conn
-                    .prepareStatement("insert into registrations values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    .prepareStatement(
+                            "insert into registrations values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             for (int i = 0; i < details.length; i++) {
                 st.setString(i + 1, request.getParameter(details[i]));
             }
+
+            HttpSession session = request.getSession();
+            st.setString(16, (String) session.getAttribute("username"));
 
             st.executeUpdate();
 

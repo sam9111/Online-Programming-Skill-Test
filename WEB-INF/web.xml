@@ -11,12 +11,30 @@
 
 
 <servlet>
+<servlet-name>Logout</servlet-name>
+<servlet-class>Logout</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>Logout</servlet-name>
+<url-pattern>/logout</url-pattern>
+</servlet-mapping>
+
+<servlet>
 <servlet-name>AdminLogin</servlet-name>
 <servlet-class>AdminLogin</servlet-class>
 </servlet>
 <servlet-mapping>
 <servlet-name>AdminLogin</servlet-name>
 <url-pattern>/adminLogin</url-pattern>
+</servlet-mapping>
+
+<servlet>
+<servlet-name>AdminDashboard</servlet-name>
+<servlet-class>AdminDashboard</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>AdminDashboard</servlet-name>
+<url-pattern>/AdminDashboard</url-pattern>
 </servlet-mapping>
 
 <servlet>

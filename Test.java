@@ -28,7 +28,7 @@ public class Test extends HttpServlet {
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             out.println(
-                    "<html>	<head>	<meta charset=\"utf-8\">  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">  <title>SkillTest</title>    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" />  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />  <link href=\"https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap\"   rel=\"stylesheet\" /> <link href=\"./style.css\" rel=\"stylesheet\" type=\"text/css\" /> <style media=\"all\"> </style></head><body> <!-- this is the start of content -->  <header>    <h1>Online Programming Skill Test</h1>  </header><section> ");
+                    "<html>	<head>	<meta charset=\"utf-8\">  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">  <title>SkillTest</title>    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" />  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />  <link href=\"https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap\"   rel=\"stylesheet\" /> <link href=\"./style.css\" rel=\"stylesheet\" type=\"text/css\" /> <style media=\"all\"> </style></head><body> <!-- this is the start of content -->  <header>    <h1>Online Programming Skill Test</h1>  <nav><a href=\"http://localhost:8080/ex4/logout\">Logout</a></nav> </header><section> ");
 
             Statement stmt = conn.createStatement();
             String sql;
@@ -64,11 +64,11 @@ public class Test extends HttpServlet {
 
             }
 
-            out.println("<h2>Your Results</h2>");
+            out.println("<h2>" + request.getParameter("name").toUpperCase() + " here are your results!</h2>");
 
             out.println("<table><tr><th>Skill</th><th>Marks</th></tr>");
 
-            String[] skills = request.getParameter("skills").split(",+", 0);
+            String[] skills = request.getParameter("skills").split(", ", 0);
 
             if (Arrays.asList(skills)
                     .contains("Java")) {
@@ -113,7 +113,7 @@ public class Test extends HttpServlet {
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             out.println(
-                    "<html>	<head>	<meta charset=\"utf-8\">  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">  <title>SkillTest</title>    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" />  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />  <link href=\"https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap\"   rel=\"stylesheet\" /> <link href=\"./style.css\" rel=\"stylesheet\" type=\"text/css\" /> <style media=\"all\"> </style></head><body> <!-- this is the start of content -->  <header>    <h1>Online Programming Skill Test</h1>  </header><section> ");
+                    "<html>	<head>	<meta charset=\"utf-8\">  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">  <title>SkillTest</title>    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" />  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />  <link href=\"https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap\"   rel=\"stylesheet\" /> <link href=\"./style.css\" rel=\"stylesheet\" type=\"text/css\" /> <style media=\"all\"> </style></head><body> <!-- this is the start of content -->  <header>    <h1>Online Programming Skill Test</h1>  <nav><a href=\"http://localhost:8080/ex4/logout\">Logout</a></nav> </header><section> ");
 
             String[] skills = request.getParameter("skills").split(", ", 0);
             Statement stmt = conn.createStatement();
@@ -135,6 +135,8 @@ public class Test extends HttpServlet {
             }
 
             out.println("<input type=\"hidden\" value=\"" + request.getParameter("skills") + "\" name=\"skills\" />");
+
+            out.println("<input type=\"hidden\" value=\"" + request.getParameter("name") + "\" name=\"name\" />");
 
             out.println("<input type=\"submit\" value=\"Submit\" /></form>");
 

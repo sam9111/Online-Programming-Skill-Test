@@ -72,6 +72,10 @@ a:hover {
 }
 
 
+a:visited {
+   color: white;
+}
+
 
 footer {
     background-color: lightslategray;

@@ -39,16 +39,6 @@ public class Register extends HttpServlet {
         response.addCookie(contact);
         response.addCookie(skills);
 
-        // out.println(
-        // "<html> <head> <meta charset=\"utf-8\"> <meta name=\"viewport\"
-        // content=\"width=device-width, initial-scale=1.0\"> <title>SkillTest</title>
-        // <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" /> <link
-        // rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin /> <link
-        // href=\"https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap\"
-        // rel=\"stylesheet\" /> <link href=\"./style.css\" rel=\"stylesheet\"
-        // type=\"text/css\" /> <style media=\"all\"> </style></head><body> <!-- this is
-        // the start of content --> <header> <h1>SkillTest</h1></header><section> ");
-
         try {
             // Register JDBC driver
             // Class.forName("com.mysql.cj.jdbc.Driver");
@@ -57,38 +47,43 @@ public class Register extends HttpServlet {
             // Open a connection
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-            // Execute SQL query
-            PreparedStatement st = conn
-                    .prepareStatement(
-                            "insert into registrations values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            HttpSession session = request.getSession();
 
-            for (int i = 0; i < details.length; i++) {
-                st.setString(i + 1, request.getParameter(details[i]));
+            // Checking if name in database
+
+            String sql = "SELECT * FROM registrations WHERE name = ? AND username = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, request.getParameter("name"));
+            stmt.setString(2, (String) session.getAttribute("username"));
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                out.println("exists");
+
+                stmt.close();
+
+            } else {
+
+                // Execute SQL query
+                PreparedStatement st = conn
+                        .prepareStatement(
+                                "insert into registrations values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+                for (int i = 0; i < details.length; i++) {
+                    st.setString(i + 1, request.getParameter(details[i]));
+                }
+
+                out.println("success");
+
+                st.setString(16, (String) session.getAttribute("username"));
+
+                st.executeUpdate();
+                st.close();
+
             }
 
-            out.println("success");
-
-            HttpSession session = request.getSession();
-            st.setString(16, (String) session.getAttribute("username"));
-
-            st.executeUpdate();
-
             // Close all the connections
-            st.close();
             conn.close();
-
-            // Get a writer pointer
-            // to display the successful result
-
-            // out.println(
-            // "<h2>Registration Successful!</h2><button class=\"button\"
-            // onclick=\"window.location.href='templates/test.html'\">Start Skill
-            // Test</button>");
-
-            // out.println("</section></body></html>");
-
-            // RequestDispatcher rd = request.getRequestDispatcher("Test");
-            // rd.forward(request, response);
 
         } catch (Exception e) {
             out.println("failure");

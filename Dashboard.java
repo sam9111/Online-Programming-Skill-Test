@@ -39,6 +39,9 @@ public class Dashboard extends HttpServlet {
                     "<html>	<head>	<meta charset=\"utf-8\">  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">  <title>SkillTest</title>    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" />  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />  <link href=\"https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap\"   rel=\"stylesheet\" /> <link href=\"./style.css\" rel=\"stylesheet\" type=\"text/css\" /> <style media=\"all\"> </style></head><body> <!-- this is the start of content -->  <header>    <h1>SkillTest</h1>     <nav><a href=\"http://localhost:8080/ex4/logout\">Logout</a></nav> </header><section> ");
 
             out.println("<h2>Dashboard</h2>");
+
+            out.println(
+                    "<button class=\"button\"><a href=\"http://localhost:8080/ex4/templates/form.html\">Register</a></button>");
             if (cookies != null) {
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals("name")) {

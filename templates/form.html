@@ -180,9 +180,13 @@
                         alert("Registration Successful");
                         window.location.href = "http://localhost:8080/ex4/Test";
                     }
+                    else if (xhr.responseText.trim() === "exists") {
+                        alert("Another registration has been found with the same name. Please enter a different name!");
+                    }
                     else {
                         alert("Registration Failed");
                     }
+
 
 
                 }

@@ -74,7 +74,7 @@ public class Login extends HttpServlet {
 					ResultSet rs1 = stmt.executeQuery(sql);
 
 					if (rs1.next()) {
-						response.sendRedirect("templates/dashboard.html");
+						response.sendRedirect("Dashboard");
 					} else {
 						response.sendRedirect("templates/form.html");
 

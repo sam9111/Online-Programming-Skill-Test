@@ -66,4 +66,14 @@
 </servlet-mapping>
 
 
+<servlet>
+<servlet-name>Dashboard</servlet-name>
+<servlet-class>Dashboard</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>Dashboard</servlet-name>
+<url-pattern>/Dashboard</url-pattern>
+</servlet-mapping>
+
+
 </web-app>

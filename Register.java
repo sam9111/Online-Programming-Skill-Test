@@ -17,6 +17,13 @@ public class Register extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        doPost(request, response);
+
+    }
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         String[] details = { "name", "college_name", "college_address", "pincode", "age", "dob", "gender", "department",
                 "contact", "email", "skills", "hobby1", "hobby2", "hobby3", "filename", "username" };
 
@@ -26,12 +33,21 @@ public class Register extends HttpServlet {
 
         Cookie name = new Cookie("name", request.getParameter("name"));
         Cookie contact = new Cookie("contact", request.getParameter("contact"));
+        Cookie skills = new Cookie("skills", String.join("&", request.getParameter("skills").trim().split(", ", 0)));
 
         response.addCookie(name);
         response.addCookie(contact);
+        response.addCookie(skills);
 
-        out.println(
-                "<html>	<head>	<meta charset=\"utf-8\">  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">  <title>SkillTest</title>    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" />  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />  <link href=\"https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap\"   rel=\"stylesheet\" /> <link href=\"./style.css\" rel=\"stylesheet\" type=\"text/css\" /> <style media=\"all\"> </style></head><body> <!-- this is the start of content -->  <header>    <h1>SkillTest</h1></header><section> ");
+        // out.println(
+        // "<html> <head> <meta charset=\"utf-8\"> <meta name=\"viewport\"
+        // content=\"width=device-width, initial-scale=1.0\"> <title>SkillTest</title>
+        // <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" /> <link
+        // rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin /> <link
+        // href=\"https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap\"
+        // rel=\"stylesheet\" /> <link href=\"./style.css\" rel=\"stylesheet\"
+        // type=\"text/css\" /> <style media=\"all\"> </style></head><body> <!-- this is
+        // the start of content --> <header> <h1>SkillTest</h1></header><section> ");
 
         try {
             // Register JDBC driver
@@ -50,6 +66,8 @@ public class Register extends HttpServlet {
                 st.setString(i + 1, request.getParameter(details[i]));
             }
 
+            out.println("success");
+
             HttpSession session = request.getSession();
             st.setString(16, (String) session.getAttribute("username"));
 
@@ -67,12 +85,13 @@ public class Register extends HttpServlet {
             // onclick=\"window.location.href='templates/test.html'\">Start Skill
             // Test</button>");
 
-            out.println("</section></body></html>");
+            // out.println("</section></body></html>");
 
-            RequestDispatcher rd = request.getRequestDispatcher("Test");
-            rd.forward(request, response);
+            // RequestDispatcher rd = request.getRequestDispatcher("Test");
+            // rd.forward(request, response);
 
         } catch (Exception e) {
+            out.println("failure");
             e.printStackTrace();
         }
     }

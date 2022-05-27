@@ -32,8 +32,8 @@
         <div class="form-title">
             <h2>Register for Cyber Paradox! </h2>
         </div>
-
-        <form name="registration" action="http://localhost:8080/ex4/register" method="get">
+        <!-- name="registration" action="http://localhost:8080/ex4/register" method="get" -->
+        <form id="registration" name="registration">
 
             <div class="form-input">
                 <label for="name" id="name_label">Name</label>
@@ -106,7 +106,7 @@
 
                     <li id="python" draggable="true" ondragstart="drag(event)" data-value="Python">Python</li>
                     <li id="java" draggable="true" ondragstart="drag(event)" data-value="Java">Java</li>
-                    <li id="c++" draggable="true" ondragstart="drag(event)" data-value="C++">C++</li>
+                    <li id="c" draggable="true" ondragstart="drag(event)" data-value="C">C</li>
                 </ul>
 
 
@@ -137,7 +137,7 @@
             </div>
             <div style="margin: 20px;display: inline-flex;">
                 <input type="reset" value="Reset" class="button ">
-                <input type="submit" value="Submit" class="button ">
+                <input type="submit" value="Submit" class="button " onclick="submitForm(event)">
             </div>
         </form>
     </section>
@@ -159,6 +159,38 @@
             console.log(document.getElementById(data).dataset.value);
             ev.target.value = ev.target.value === "" ? document.getElementById(data).dataset.value : ev.target.value + ", " + document.getElementById(data).dataset.value;
         }
+
+        function submitForm(ev) {
+            ev.preventDefault();
+            var form = document.getElementById("registration");
+            console.log(form)
+            var formData = new FormData(form);
+            var params = ""
+            for (let [name, value] of formData) {
+                params = params + name + "=" + value + "&";
+            }
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:8080/ex4/register", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+
+                    console.log("responseText: " + xhr.responseText);
+
+                    if (xhr.responseText.trim() === "success") {
+                        alert("Registration Successful");
+                        window.location.href = "http://localhost:8080/ex4/Test";
+                    }
+                    else {
+                        alert("Registration Failed");
+                    }
+
+
+                }
+            }
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.send(params);
+        }
+
 
     </script>
 

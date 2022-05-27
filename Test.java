@@ -35,7 +35,7 @@ public class Test extends HttpServlet {
             ResultSet rs = null;
 
             int java_marks = 0;
-            int cpp_marks = 0;
+            int c_marks = 0;
             int python_marks = 0;
 
             for (int i = 1; i <= 6; i++) {
@@ -51,8 +51,8 @@ public class Test extends HttpServlet {
                         if (rs.getString("answer").equals(answer)) {
                             if (rs.getString("skill").equals("Java")) {
                                 java_marks++;
-                            } else if (rs.getString("skill").equals("C++")) {
-                                cpp_marks++;
+                            } else if (rs.getString("skill").equals("C")) {
+                                c_marks++;
                             } else if (rs.getString("skill").equals("Python")) {
                                 python_marks++;
                             }
@@ -64,26 +64,40 @@ public class Test extends HttpServlet {
 
             }
 
-            out.println("<h2>" + request.getParameter("name").toUpperCase() + " here are your results!</h2>");
+            out.println("<h3>" + request.getParameter("name").toUpperCase() + " here are your results!</h3>");
 
             out.println("<table><tr><th>Skill</th><th>Marks</th></tr>");
 
-            String[] skills = request.getParameter("skills").split(", ", 0);
+            String[] skills = request.getParameter("skills").split("&", 0);
 
             if (Arrays.asList(skills)
                     .contains("Java")) {
                 out.println("<tr><td>Java</td><td>" + java_marks + "</td></tr>");
             }
             if (Arrays.asList(skills)
-                    .contains("C++")) {
-                out.println("<tr><td>C++</td><td>" + cpp_marks + "</td></tr>");
+                    .contains("C")) {
+                out.println("<tr><td>C</td><td>" + c_marks + "</td></tr>");
             }
             if (Arrays.asList(skills)
                     .contains("Python")) {
                 out.println("<tr><td>Python</td><td>" + python_marks + "</td></tr>");
             }
 
-            // Clean-up environment
+            // Execute SQL query
+
+            HttpSession session = request.getSession();
+
+            PreparedStatement st = conn
+                    .prepareStatement("insert into tests values(?, ?, ?, ?)");
+            st.setString(4, session.getAttribute("username").toString());
+            st.setInt(1, java_marks);
+            st.setInt(2, c_marks);
+            st.setInt(3, python_marks);
+            st.executeUpdate();
+
+            // Close all the connections
+            st.close();
+
             rs.close();
             stmt.close();
             conn.close();
@@ -104,6 +118,21 @@ public class Test extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
+        Cookie[] cookies = request.getCookies();
+
+        String name = "", skillsParam = "";
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("name")) {
+                    name = cookie.getValue();
+                }
+                if (cookie.getName().equals("skills")) {
+                    skillsParam = cookie.getValue();
+                }
+            }
+        }
+
         try {
             // Register JDBC driver
             Class.forName(JDBC_DRIVER);
@@ -115,7 +144,7 @@ public class Test extends HttpServlet {
             out.println(
                     "<html>	<head>	<meta charset=\"utf-8\">  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">  <title>SkillTest</title>    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" />  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />  <link href=\"https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap\"   rel=\"stylesheet\" /> <link href=\"./style.css\" rel=\"stylesheet\" type=\"text/css\" /> <style media=\"all\"> </style></head><body> <!-- this is the start of content -->  <header>    <h1>Online Programming Skill Test</h1>  <nav><a href=\"http://localhost:8080/ex4/logout\">Logout</a></nav> </header><section> ");
 
-            String[] skills = request.getParameter("skills").split(", ", 0);
+            String[] skills = skillsParam.split("&", 0);
             Statement stmt = conn.createStatement();
             String sql;
             ResultSet rs = null;
@@ -134,9 +163,9 @@ public class Test extends HttpServlet {
                 }
             }
 
-            out.println("<input type=\"hidden\" value=\"" + request.getParameter("skills") + "\" name=\"skills\" />");
+            out.println("<input type=\"hidden\" value=\"" + skillsParam + "\" name=\"skills\" />");
 
-            out.println("<input type=\"hidden\" value=\"" + request.getParameter("name") + "\" name=\"name\" />");
+            out.println("<input type=\"hidden\" value=\"" + name + "\" name=\"name\" />");
 
             out.println("<input type=\"submit\" value=\"Submit\" /></form>");
 
